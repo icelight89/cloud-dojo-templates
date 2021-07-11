@@ -1,0 +1,123 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]"
+        },
+        "sqlServerName": {
+            "type": "string",
+            "defaultValue": "[concat(resourceGroup().name, '-sql')]"
+        },
+        "administratorLogin": {
+            "type": "string",
+            "metadata": {
+                "description": "The administrator username of the SQL logical server."
+            }
+        },
+        "administratorLoginPassword": {
+            "type": "securestring",
+            "metadata": {
+                "description": "The administrator password of the SQL logical server."
+            }
+        },
+        "staticSitesName": {
+            "type": "string",
+            "defaultValue": "[concat(resourceGroup().name, '-swa')]",
+            "metadata": {
+                "description": "The name of the Azure Static Web Apps."
+            }
+        },
+        "staticSitesSku": {
+            "type": "string"
+        },
+        "staticSitesSkuCode": {
+            "type": "string"
+        },
+        "repositoryUrl": {
+            "type": "string"
+        },
+        "branch": {
+            "type": "string"
+        },
+        "repositoryToken": {
+            "type": "securestring"
+        },
+        "appLocation": {
+            "type": "string"
+        },
+        "apiLocation": {
+            "type": "string"
+        },
+        "appArtifactLocation": {
+            "type": "string"
+        }
+    },
+    "functions": [],
+    "variables": {
+        "sqlDBName": "resiliency_test"
+    },
+    "resources": [
+        {
+            "name": "[parameters('sqlServerName')]",
+            "type": "Microsoft.Sql/servers",
+            "location": "[parameters('location')]",
+            "apiVersion": "2020-11-01-preview",
+            "properties": {
+                "administratorLogin": "[parameters('administratorLogin')]",
+                "administratorLoginPassword": "[parameters('administratorLoginPassword')]",
+                "minimalTlsVersion": "1.2"
+            },
+            "resources": [
+                {
+                    "name": "AllowAllWindowsAzureIps",
+                    "type": "firewallrules",
+                    "location": "[parameters('location')]",
+                    "apiVersion": "2020-11-01-preview",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Sql/servers', parameters('sqlServerName'))]"
+                    ],
+                    "properties": {
+                        "startIpAddress": "0.0.0.0",
+                        "endIpAddress": "0.0.0.0"
+                    }
+                },
+                {
+                    "type": "databases",
+                    "apiVersion": "2020-11-01-preview",
+                    "name": "[variables('sqlDBName')]",
+                    "location": "[parameters('location')]",
+                    "sku": {
+                        "name": "S0"
+                    },
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Sql/servers', concat(parameters('sqlServerName')))]"
+                    ],
+                    "properties": {}
+                }
+            ]
+        },
+        {
+            "type": "Microsoft.Web/staticSites",
+            "apiVersion": "2019-12-01-preview",
+            "name": "[parameters('staticSitesName')]",
+            "location": "[parameters('location')]",
+            "properties": {
+                "repositoryUrl": "[parameters('repositoryUrl')]",
+                "branch": "[parameters('branch')]",
+                "repositoryToken": "[parameters('repositoryToken')]",
+                "buildProperties": {
+                    "appLocation": "[parameters('appLocation')]",
+                    "apiLocation": "[parameters('apiLocation')]",
+                    "appArtifactLocation": "[parameters('appArtifactLocation')]"
+                }
+            },
+            "sku": {
+                "Tier": "[parameters('staticSitesSku')]",
+                "Name": "[parameters('staticSitesSkuCode')]"
+            }
+        }
+    ],
+    "outputs": {}
+}

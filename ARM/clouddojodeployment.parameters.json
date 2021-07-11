@@ -1,0 +1,36 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "administratorLogin": {
+            "value": "<UNIQUE ADMIN USERNAME>"
+        },
+        "administratorLoginPassword": {
+            "value": "<UNIQUE ADMIN PASSWORD>"
+        },
+        "staticSitesSku": {
+            "value": "Free"
+        },
+        "staticSitesSkuCode": {
+            "value": "Free"
+        },
+        "repositoryUrl": {
+            "value": "https://github.com/<YOUR GH USER>/azure-sql-db-todo-mvc.git"
+        },
+        "branch": {
+            "value": "main"
+        },
+        "repositoryToken": {
+            "value": "<YOUR GITHUB PERSONAL ACCESS TOKEN>"
+        },
+        "appLocation": {
+            "value": "client"
+        },
+        "apiLocation": {
+            "value": "api"
+        },
+        "appArtifactLocation": {
+            "value": "public"
+        }
+    }
+}
