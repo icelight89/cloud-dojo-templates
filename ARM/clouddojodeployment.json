@@ -56,7 +56,7 @@
     },
     "functions": [],
     "variables": {
-        "sqlDBName": "resiliency_test"
+        "sqlDBName": "todo-app-sql-db"
     },
     "resources": [
         {
