@@ -30,7 +30,7 @@ These ARM templates help with setting up the required cloud resources to run the
     --method put \
     --headers "Content-Type=application/json" \
     --uri "/subscriptions/<YOUR_SUBSCRIPTION_ID>/resourceGroups/<YOUR_RESOURCE_GROUP_NAME>/providers/Microsoft.Web/staticSites/<YOUR_STATIC_SITE_NAME>/config/functionappsettings?api-version=2019-12-01-preview" \
-    --body @local.settings.properties.json
+    --body @../local.settings.properties.json
     ```
 
 1. Now we have to initialize the database. 
