@@ -7,7 +7,7 @@ SQL_SERVER=$DOJO_USER-todo-app-sql-server
 SQL_ADMIN_PASSWORD=<sql-admin-password>
 DB=todo-app-sql-db
 STATIC_WEB_APP=todo-app
-GIT_REPO_URL=<git-repo-url>
+GIT_REPO_URL=https://github.com/<github-user>/azure-sql-db-todo-mvc.git
 SUBSCRIPTION_ID=<subscription-id>
 
 # Create Resource Group
