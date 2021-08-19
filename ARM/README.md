@@ -41,6 +41,6 @@ These ARM templates help with setting up the required cloud resources to run the
     1. Select "Query editor (preview)" from the right navigation menu.
     1. Login with the server admin account you specfied in the parameters file.
     1. Copy the content of the [create.sql](https://github.com/Azure-Samples/azure-sql-db-todo-mvc/blob/main/database/create.sql) file from the sample repository, paste it into the editor and then run the query.
-    1. Your database should now beready for usage.
+    1. Your database should now be ready for usage.
 
 1. Go to your Static Web App resource and in the "Overview" blade open the "URL" to your website.
